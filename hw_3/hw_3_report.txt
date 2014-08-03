@@ -1,0 +1,93 @@
+For the SparseParScoring implementation, two arrays are being used to keep track
+of the scores for the fully scored row and the following row that needs to be 
+scored in the matrix. To carry out the scoring, an outer forseq goes over all the
+elements in the X string and a inner forallchunked goes over all the elements in the
+Y string.Once all the loops complete, the last index of the array that was being filled
+last is retrieved to get the scored. The implementation is correct because all iterations
+produced the same score and the code does accesses different indices in the matrix when 
+performing the calucations. Additionally, the speedup compared to SeqSparseParScoring is 4
+times faster therefore SparseParScoring is parallel.
+
+For the UsefulParScoring implementation, the program first computes the diagonal value. Once
+the diagonal value, the program steps into two forasyncChunked's. The second forasyncChuncked
+computes all the values for the current row to the right of the diagonal value. The first
+forasyncChunked computes all the values for the current column  to the down of the diagonal
+value. Once all the values in matrix are complete then it steps out of the while loop and
+the score is retrieved from the matrix. The implementaion is correct because all iterations
+produced the same score and the codes accesses different indices in the matrix when
+performing the calculations. Additionally, the speedup compared to SeqScoring is 1/4 times
+faster therefore UsefulParScoring is parallel.
+
+Seq>>>>>>>>>>>>>
+
+Size of input string 1 is 10080
+Size of input string 2 is 10019
+  The score = 31532 in iteration 1
+  The execution time = 4862 milliseconds in iteration 1
+  The score = 31532 in iteration 2
+  The execution time = 4720 milliseconds in iteration 2
+  The score = 31532 in iteration 3
+  The execution time = 4919 milliseconds in iteration 3
+  The score = 31532 in iteration 4
+  The execution time = 4542 milliseconds in iteration 4
+  The score = 31532 in iteration 5
+  The execution time = 4574 milliseconds in iteration 5
+Avg time of computation is 4723
+Min time of computation is 4542 milliseconds
+
+Seq^^^^^^^^^^^^^
+
+Useful>>>>>>>>>>>>
+
+Size of input string 1 is 10080
+Size of input string 2 is 10019
+  The score = 31532 in iteration 1
+  The execution time = 4262 milliseconds in iteration 1
+  The score = 31532 in iteration 2
+  The execution time = 4281 milliseconds in iteration 2
+  The score = 31529 in iteration 3
+  The execution time = 3391 milliseconds in iteration 3
+  The score = 31529 in iteration 4
+  The execution time = 3539 milliseconds in iteration 4
+  The score = 31529 in iteration 5
+  The execution time = 3492 milliseconds in iteration 5
+Avg time of computation is 3793
+Min time of computation is 3391 milliseconds
+
+Useful^^^^^^^^^^^^^^^
+
+Sparse>>>>>>>>>
+Size of input string 1 is 100100
+Size of input string 2 is 100004
+  The score = 314390 in iteration 1
+  The execution time = 118730 milliseconds in iteration 1
+  The score = 314390 in iteration 2
+  The execution time = 134136 milliseconds in iteration 2
+  The score = 314390 in iteration 3
+  The execution time = 110819 milliseconds in iteration 3
+  The score = 314390 in iteration 4
+  The execution time = 123854 milliseconds in iteration 4
+  The score = 314390 in iteration 5
+  The execution time = 116260 milliseconds in iteration 5
+Avg time of computation is 120759
+Min time of computation is 110819 milliseconds
+
+Sparse^^^^^^^^^^^^^
+
+SeqSparse>>>>>>>>>>>>
+Size of input string 1 is 100100
+Size of input string 2 is 100004
+  The score = 314390 in iteration 1
+  The execution time = 497152 milliseconds in iteration 1
+  The score = 314390 in iteration 2
+  The execution time = 496949 milliseconds in iteration 2
+  The score = 314390 in iteration 3
+  The execution time = 497594 milliseconds in iteration 3
+  The score = 314390 in iteration 4
+  The execution time = 498934 milliseconds in iteration 4
+  The score = 314390 in iteration 5
+  The execution time = 499255 milliseconds in iteration 5
+Avg time of computation is 497976
+Min time of computation is 496949 milliseconds
+
+SeqSparse^^^^^^^^^^

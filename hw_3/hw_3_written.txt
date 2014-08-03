@@ -1,0 +1,28 @@
+1.1 Future Tasks and Data-Driven Futures
+
+1. Futures:
+  a)  Consumer task blocks on get() for each future that it reads.
+  b) future tasks cannot deadlock
+  c) Producer task can only write to a single future object
+  d) The choice of which future object to write to is tied to a future task at 
+  creation time
+
+  Data-Driven Futures:
+  a) Async-Await does not start execution till all DDFs are available
+  b) It is possible for a DDT to block indefinitely ("deadlock") if one of its 
+  input DDFs never becomes available.
+  c) A DDT can write to multiple DDF objects
+  d) The choice of out DDF can be deferred to any point with a DDT
+  e) DDTs and DDFs can be more implemented more efficiently than futures
+  f) An "asyncAwait" statement does not block the worker, unlike a future.get()
+  g) You will never the see the following message with "asyncAwait"
+     "ERROR: Maximum number of hj threads per place reached"
+
+     Both:
+     a)  Put method constructs
+
+2. No, it is not possible for any instance of the asyncAwait's to be indefinitely
+   blocked on its await clause. The program first creates all the asyncAwait's in
+   the for-loop in line 5. After the for-loop finishes, line 11 does a put on the 
+   first index in the array. This triggers an ascending put for each index in the
+   array that has an asyncAwait allowing the program to finish and terminate.
